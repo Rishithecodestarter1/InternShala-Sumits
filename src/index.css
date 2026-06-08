@@ -1,0 +1,31 @@
+/* index.css - Base document styles shared by the whole ShoppyGlobe app. */
+:root {
+  font-family: Inter, Arial, sans-serif;
+  color: rgb(31, 41, 55);
+  background: rgb(245, 247, 250);
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+html {
+  min-width: 320px;
+  min-height: 100%;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+  background: rgb(245, 247, 250);
+}
+
+button,
+input,
+textarea {
+  font: inherit;
+}
+
+a {
+  color: inherit;
+}
