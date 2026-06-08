@@ -316,6 +316,10 @@ video {
   margin-top: 28px;
 }
 
+.comments-section h2 {
+  margin-bottom: 16px;
+}
+
 .comment-form,
 .comment-edit,
 .inline-confirm {
@@ -386,6 +390,11 @@ video {
 }
 
 .page-message {
+  display: grid;
+  min-height: 240px;
+  place-items: center;
+  border-radius: 14px;
+  background: rgb(249, 249, 249);
   padding: 48px 16px;
   color: rgb(96, 96, 96);
   text-align: center;
