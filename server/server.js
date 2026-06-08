@@ -31,7 +31,15 @@ app.use('/api/videos', videoRoutes)
 app.use('/api/videos', commentRoutes)
 
 app.use((error, _request, response, _next) => {
-  response.status(error.statusCode || 500).json({
+  if (error.name === 'CastError') {
+    return response.status(400).json({ message: 'Invalid resource id.' })
+  }
+
+  if (error.name === 'ValidationError') {
+    return response.status(400).json({ message: error.message })
+  }
+
+  return response.status(error.statusCode || 500).json({
     message: error.message || 'Server error',
   })
 })
