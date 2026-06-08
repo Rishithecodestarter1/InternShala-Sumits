@@ -1,11 +1,6 @@
 // VideoCard.jsx - Displays one video thumbnail card and links to its video player page.
 import { Link } from 'react-router-dom'
-
-function formatViews(views = 0) {
-  if (views >= 1000000) return `${(views / 1000000).toFixed(1)}M views`
-  if (views >= 1000) return `${Math.round(views / 1000)}K views`
-  return `${views} views`
-}
+import { formatViews } from '../utils/formatters.js'
 
 function VideoCard({ video, showOwnerActions = false, onEdit, onDelete }) {
   return (

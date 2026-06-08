@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom'
 import api from '../api/axiosInstance.js'
 import CommentSection from '../components/CommentSection.jsx'
 import { useAuth } from '../context/AuthContext.jsx'
+import { formatDate, formatViews } from '../utils/formatters.js'
 
 function VideoPlayerPage() {
   const { videoId } = useParams()
@@ -46,7 +47,7 @@ function VideoPlayerPage() {
         <video className="watch-player" src={video.videoUrl} controls />
         <h1>{video.title}</h1>
         <p className="video-meta">
-          {video.views} views · {new Date(video.uploadDate).toLocaleDateString()}
+          {formatViews(video.views)} · {formatDate(video.uploadDate)}
         </p>
         {error && <p className="error-text">{error}</p>}
         <div className="watch-actions">
