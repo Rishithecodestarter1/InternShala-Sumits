@@ -22,7 +22,11 @@ app.use(
 app.use(express.json())
 
 app.get('/', (_request, response) => {
-  response.status(200).json({ message: 'youtube-clone API is running' })
+  response.status(200).json({
+    message: 'youtube-clone API is running',
+    version: '1.0.0',
+    endpoints: ['/api/auth', '/api/videos', '/api/channels'],
+  })
 })
 
 app.use('/api/auth', authRoutes)
