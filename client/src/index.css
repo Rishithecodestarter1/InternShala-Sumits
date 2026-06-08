@@ -205,6 +205,75 @@ video {
   display: none;
 }
 
+.filter-bar {
+  position: sticky;
+  z-index: 10;
+  top: 56px;
+  display: flex;
+  gap: 10px;
+  overflow-x: auto;
+  margin: 0 -24px 20px;
+  padding: 12px 24px;
+  background: rgb(255, 255, 255);
+}
+
+.filter-bar__button {
+  flex: 0 0 auto;
+  border: 0;
+  border-radius: 8px;
+  background: rgb(240, 240, 240);
+  color: rgb(15, 15, 15);
+  padding: 8px 12px;
+  font-weight: 700;
+}
+
+.filter-bar__button--active {
+  background: rgb(15, 15, 15);
+  color: rgb(255, 255, 255);
+}
+
+.video-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 32px 18px;
+}
+
+.video-card {
+  min-width: 0;
+}
+
+.video-card__thumbnail {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  border-radius: 12px;
+  background: rgb(240, 240, 240);
+}
+
+.video-card__title {
+  display: -webkit-box;
+  overflow: hidden;
+  margin: 10px 0 6px;
+  color: rgb(15, 15, 15);
+  font-size: 1rem;
+  line-height: 1.35;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+}
+
+.video-card__channel,
+.video-card__meta {
+  margin: 0;
+  color: rgb(96, 96, 96);
+  font-size: 0.9rem;
+}
+
+.video-card__actions {
+  display: flex;
+  gap: 8px;
+  margin-top: 10px;
+}
+
 .page-message {
   padding: 48px 16px;
   color: rgb(96, 96, 96);
@@ -288,6 +357,12 @@ video {
     grid-column: 1 / -1;
   }
 
+  .filter-bar {
+    top: 104px;
+    margin: 0 -12px 18px;
+    padding: 10px 12px;
+  }
+
   .app-shell__body {
     padding-top: 104px;
   }
@@ -316,5 +391,9 @@ video {
 
   .app-shell__main {
     padding: 0 12px 28px;
+  }
+
+  .video-grid {
+    grid-template-columns: 1fr;
   }
 }
