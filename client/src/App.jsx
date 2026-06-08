@@ -1,6 +1,7 @@
 import { useState } from 'react'
 import { Outlet, createBrowserRouter } from 'react-router-dom'
 import Header from './components/Header.jsx'
+import ProtectedRoute from './components/ProtectedRoute.jsx'
 import Sidebar from './components/Sidebar.jsx'
 import AuthPage from './pages/AuthPage.jsx'
 import ChannelPage from './pages/ChannelPage.jsx'
@@ -31,6 +32,10 @@ export const router = createBrowserRouter([
     children: [
       { index: true, element: <HomePage /> },
       { path: 'watch/:videoId', element: <VideoPlayerPage /> },
+      {
+        element: <ProtectedRoute />,
+        children: [{ path: 'channel/new', element: <ChannelPage /> }],
+      },
       { path: 'channel/:channelId', element: <ChannelPage /> },
     ],
   },
