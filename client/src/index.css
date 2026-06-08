@@ -346,6 +346,49 @@ video {
   padding: 10px 12px;
 }
 
+.auth-page,
+.not-found-page {
+  display: grid;
+  min-height: 100vh;
+  place-items: center;
+  padding: 24px;
+}
+
+.auth-page {
+  background: rgb(249, 249, 249);
+}
+
+.auth-page__logo {
+  margin-bottom: 20px;
+}
+
+.auth-tabs {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 18px;
+}
+
+.auth-tabs__button {
+  flex: 1;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(240, 240, 240);
+  color: rgb(15, 15, 15);
+  padding: 10px;
+  font-weight: 800;
+}
+
+.auth-tabs__button--active {
+  background: rgb(15, 15, 15);
+  color: rgb(255, 255, 255);
+}
+
+.not-found-page {
+  background: rgb(15, 15, 15);
+  color: rgb(255, 255, 255);
+  text-align: center;
+}
+
 @media (max-width: 760px) {
   .site-header {
     height: 104px;
