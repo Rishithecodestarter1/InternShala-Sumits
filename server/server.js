@@ -3,6 +3,7 @@ import cors from 'cors'
 import dotenv from 'dotenv'
 import express from 'express'
 import { connectDB } from './config/db.js'
+import authRoutes from './routes/authRoutes.js'
 
 dotenv.config({ quiet: true })
 
@@ -20,6 +21,8 @@ app.use(express.json())
 app.get('/', (_request, response) => {
   response.status(200).json({ message: 'youtube-clone API is running' })
 })
+
+app.use('/api/auth', authRoutes)
 
 app.use((error, _request, response, _next) => {
   response.status(error.statusCode || 500).json({
