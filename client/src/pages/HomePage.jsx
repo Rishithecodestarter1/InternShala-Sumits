@@ -21,6 +21,13 @@ function HomePage() {
     return params.toString()
   }, [activeCategory, searchQuery])
 
+  const noResultsMessage = useMemo(() => {
+    if (searchQuery && activeCategory !== 'All') return `No videos found for "${searchQuery}" in ${activeCategory}.`
+    if (searchQuery) return `No videos found for "${searchQuery}".`
+    if (activeCategory !== 'All') return `No videos found in ${activeCategory}.`
+    return 'No videos found.'
+  }, [activeCategory, searchQuery])
+
   useEffect(() => {
     let isMounted = true
 
@@ -63,7 +70,7 @@ function HomePage() {
         </div>
       )}
       {error && <p className="error-text">{error}</p>}
-      {!loading && !error && videos.length === 0 && <p className="page-message">No videos found.</p>}
+      {!loading && !error && videos.length === 0 && <p className="page-message">{noResultsMessage}</p>}
       {!loading && !error && videos.length > 0 && (
         <div className="video-grid">
           {videos.map((video) => (
