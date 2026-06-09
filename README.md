@@ -89,6 +89,8 @@ MONGO_URI=your_mongodb_connection_string_here
 JWT_SECRET=your_very_long_secret_key_here
 ```
 
+Use a local MongoDB URI for offline testing or a MongoDB Atlas URI for hosted data. Keep `JWT_SECRET` long and private because it signs every login token.
+
 Seed the database:
 
 ```powershell
@@ -113,6 +115,12 @@ npm run dev
 ```
 
 The frontend runs at `http://localhost:5173` and proxies `/api` requests to the backend during local development.
+
+The client environment file only needs the API base URL:
+
+```env
+VITE_API_URL=http://localhost:5000/api
+```
 
 ## Seeded Login Credentials
 
