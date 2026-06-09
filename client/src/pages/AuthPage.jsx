@@ -15,7 +15,14 @@ function AuthPage() {
   const [message, setMessage] = useState('')
 
   const handleChange = (event) => {
-    setForm((current) => ({ ...current, [event.target.name]: event.target.value }))
+    const { name, value } = event.target
+    setForm((current) => ({ ...current, [name]: value }))
+    setErrors((current) => {
+      const nextErrors = { ...current }
+      delete nextErrors[name]
+      delete nextErrors.api
+      return nextErrors
+    })
   }
 
   const validate = () => {
@@ -76,24 +83,24 @@ function AuthPage() {
           {!isLogin && (
             <div className="form-field">
               <label htmlFor="username">Username</label>
-              <input id="username" name="username" value={form.username} onChange={handleChange} />
+              <input id="username" name="username" value={form.username} aria-invalid={Boolean(errors.username)} onChange={handleChange} />
               {errors.username && <span className="error-text">{errors.username}</span>}
             </div>
           )}
           <div className="form-field">
             <label htmlFor="email">Email</label>
-            <input id="email" name="email" type="email" value={form.email} onChange={handleChange} />
+            <input id="email" name="email" type="email" value={form.email} aria-invalid={Boolean(errors.email)} onChange={handleChange} />
             {errors.email && <span className="error-text">{errors.email}</span>}
           </div>
           <div className="form-field">
             <label htmlFor="password">Password</label>
-            <input id="password" name="password" type="password" value={form.password} onChange={handleChange} />
+            <input id="password" name="password" type="password" value={form.password} aria-invalid={Boolean(errors.password)} onChange={handleChange} />
             {errors.password && <span className="error-text">{errors.password}</span>}
           </div>
           {!isLogin && (
             <div className="form-field">
               <label htmlFor="confirmPassword">Confirm Password</label>
-              <input id="confirmPassword" name="confirmPassword" type="password" value={form.confirmPassword} onChange={handleChange} />
+              <input id="confirmPassword" name="confirmPassword" type="password" value={form.confirmPassword} aria-invalid={Boolean(errors.confirmPassword)} onChange={handleChange} />
               {errors.confirmPassword && <span className="error-text">{errors.confirmPassword}</span>}
             </div>
           )}
