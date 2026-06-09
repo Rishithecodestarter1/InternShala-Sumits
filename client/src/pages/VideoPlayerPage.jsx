@@ -41,6 +41,11 @@ function VideoPlayerPage() {
   if (loading) return <p className="page-message">Loading video...</p>
   if (error && !video) return <p className="error-text">{error}</p>
 
+  const likes = Array.isArray(video.likes) ? video.likes : []
+  const dislikes = Array.isArray(video.dislikes) ? video.dislikes : []
+  const channelHref = video.channelId ? `/channel/${video.channelId}` : '/'
+  const channelLabel = video.channelName || 'Unknown channel'
+
   return (
     <section className="watch-page">
       <div className="watch-page__main">
@@ -52,13 +57,13 @@ function VideoPlayerPage() {
         {error && <p className="error-text">{error}</p>}
         <div className="watch-actions">
           <button className="secondary-button" type="button" onClick={() => toggleReaction('like')}>
-            👍 {video.likes.length}
+            👍 {likes.length}
           </button>
           <button className="secondary-button" type="button" onClick={() => toggleReaction('dislike')}>
-            👎 {video.dislikes.length}
+            👎 {dislikes.length}
           </button>
-          <Link className="secondary-button" to={`/channel/${video.channelId}`}>
-            {video.channelName}
+          <Link className="secondary-button" to={channelHref}>
+            {channelLabel}
           </Link>
         </div>
         <div className="video-description">
