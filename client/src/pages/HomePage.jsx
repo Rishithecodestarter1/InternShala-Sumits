@@ -55,7 +55,13 @@ function HomePage() {
   return (
     <section className="home-page">
       <FilterBar activeCategory={activeCategory} onCategoryChange={handleCategoryChange} />
-      {loading && <p className="page-message">Loading videos...</p>}
+      {loading && (
+        <div className="page-message page-message--loading" role="status">
+          <span className="loading-dot" />
+          <strong>Loading videos</strong>
+          <span>Fetching the latest feed from the API.</span>
+        </div>
+      )}
       {error && <p className="error-text">{error}</p>}
       {!loading && !error && videos.length === 0 && <p className="page-message">No videos found.</p>}
       {!loading && !error && videos.length > 0 && (
