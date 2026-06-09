@@ -1,6 +1,6 @@
 // VideoCard.jsx - Displays one video thumbnail card and links to its video player page.
 import { Link } from 'react-router-dom'
-import { formatViews } from '../utils/formatters.js'
+import { formatDate, formatViews } from '../utils/formatters.js'
 
 function VideoCard({ video, showOwnerActions = false, onEdit, onDelete }) {
   return (
@@ -9,7 +9,9 @@ function VideoCard({ video, showOwnerActions = false, onEdit, onDelete }) {
         <img className="video-card__thumbnail" src={video.thumbnailUrl} alt={video.title} loading="lazy" />
         <h2 className="video-card__title">{video.title}</h2>
         <p className="video-card__channel">{video.channelName}</p>
-        <p className="video-card__meta">{formatViews(video.views)}</p>
+        <p className="video-card__meta">
+          {formatViews(video.views)} {video.uploadDate ? `· ${formatDate(video.uploadDate)}` : ''}
+        </p>
       </Link>
       {showOwnerActions && (
         <div className="video-card__actions">

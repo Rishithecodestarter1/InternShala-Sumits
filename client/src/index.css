@@ -264,12 +264,23 @@ video {
   min-width: 0;
 }
 
+.video-card a {
+  display: block;
+  border-radius: 12px;
+}
+
 .video-card__thumbnail {
   width: 100%;
   aspect-ratio: 16 / 9;
   object-fit: cover;
   border-radius: 12px;
   background: rgb(240, 240, 240);
+  transition: transform 160ms ease, filter 160ms ease;
+}
+
+.video-card a:hover .video-card__thumbnail {
+  filter: brightness(0.94);
+  transform: translateY(-2px);
 }
 
 .video-card__title {
