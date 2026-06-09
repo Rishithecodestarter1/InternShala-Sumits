@@ -24,27 +24,35 @@ function CommentSection({ videoId }) {
   const addComment = async (event) => {
     event.preventDefault()
     setError('')
+    const trimmedText = text.trim()
 
     if (!isAuthenticated) {
       setError('Please sign in to comment.')
       return
     }
 
-    if (!text.trim()) {
+    if (!trimmedText) {
       setError('Comment text is required.')
       return
     }
 
-    const response = await api.post(`/videos/${videoId}/comments`, { text })
+    const response = await api.post(`/videos/${videoId}/comments`, { text: trimmedText })
     setComments((current) => [response.data, ...current])
     setText('')
   }
 
   const saveEdit = async (commentId) => {
-    const response = await api.put(`/videos/${videoId}/comments/${commentId}`, { text: editingText })
+    const trimmedText = editingText.trim()
+    if (!trimmedText) {
+      setError('Edited comment text is required.')
+      return
+    }
+
+    const response = await api.put(`/videos/${videoId}/comments/${commentId}`, { text: trimmedText })
     setComments((current) => current.map((comment) => (comment._id === commentId ? response.data : comment)))
     setEditingId('')
     setEditingText('')
+    setError('')
   }
 
   const deleteComment = async (commentId) => {
