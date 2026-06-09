@@ -12,7 +12,13 @@ function Header({ onMenuClick }) {
     event.preventDefault()
     const formData = new FormData(event.currentTarget)
     const query = formData.get('search')?.trim() || ''
-    navigate(query ? `/?search=${encodeURIComponent(query)}` : '/')
+    if (!query) {
+      navigate('/')
+      event.currentTarget.reset()
+      return
+    }
+
+    navigate(`/?search=${encodeURIComponent(query)}`)
   }
 
   return (

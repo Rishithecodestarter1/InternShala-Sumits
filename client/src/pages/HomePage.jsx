@@ -11,7 +11,7 @@ function HomePage() {
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState('')
 
-  const searchQuery = searchParams.get('search') || ''
+  const searchQuery = searchParams.get('search')?.trim() || ''
   const activeCategory = searchParams.get('category') || 'All'
 
   const requestQuery = useMemo(() => {
