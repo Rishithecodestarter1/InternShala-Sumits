@@ -11,6 +11,7 @@ function VideoPlayerPage() {
   const { isAuthenticated } = useAuth()
   const [video, setVideo] = useState(null)
   const [loading, setLoading] = useState(true)
+  const [reactionPending, setReactionPending] = useState('')
   const [error, setError] = useState('')
 
   useEffect(() => {
@@ -28,14 +29,24 @@ function VideoPlayerPage() {
   }, [videoId])
 
   const toggleReaction = async (type) => {
+    if (reactionPending) return
+
     if (!isAuthenticated) {
       setError('Please sign in to like or dislike.')
       return
     }
 
-    // The backend stores user ids in like/dislike arrays so duplicate votes are prevented.
-    const response = await api.put(`/videos/${videoId}/${type}`)
-    setVideo(response.data)
+    try {
+      setError('')
+      setReactionPending(type)
+      // The backend stores user ids in like/dislike arrays so duplicate votes are prevented.
+      const response = await api.put(`/videos/${videoId}/${type}`)
+      setVideo(response.data)
+    } catch (apiError) {
+      setError(apiError.response?.data?.message || 'Unable to update reaction.')
+    } finally {
+      setReactionPending('')
+    }
   }
 
   if (loading) return <p className="page-message">Loading video...</p>
@@ -56,10 +67,10 @@ function VideoPlayerPage() {
         </p>
         {error && <p className="error-text">{error}</p>}
         <div className="watch-actions">
-          <button className="secondary-button" type="button" onClick={() => toggleReaction('like')}>
+          <button className="secondary-button" type="button" disabled={Boolean(reactionPending)} onClick={() => toggleReaction('like')}>
             👍 {likes.length}
           </button>
-          <button className="secondary-button" type="button" onClick={() => toggleReaction('dislike')}>
+          <button className="secondary-button" type="button" disabled={Boolean(reactionPending)} onClick={() => toggleReaction('dislike')}>
             👎 {dislikes.length}
           </button>
           <Link className="secondary-button" to={channelHref}>
