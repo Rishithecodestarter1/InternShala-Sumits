@@ -605,4 +605,22 @@ video {
   .video-grid {
     grid-template-columns: 1fr;
   }
+
+  .comment-form,
+  .comment-edit,
+  .inline-confirm {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .comment-card__actions {
+    flex-wrap: wrap;
+  }
+
+  .comment-form .primary-button,
+  .comment-edit .primary-button,
+  .inline-confirm .secondary-button,
+  .inline-confirm .danger-button {
+    width: 100%;
+  }
 }
