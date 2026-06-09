@@ -63,12 +63,12 @@ video {
   left: 0;
   display: grid;
   height: 56px;
-  grid-template-columns: 240px minmax(220px, 720px) 1fr;
+  grid-template-columns: minmax(216px, 260px) minmax(240px, 680px) minmax(180px, 1fr);
   align-items: center;
-  gap: 24px;
+  gap: 18px;
   border-bottom: 1px solid rgb(204, 204, 204);
   background: rgb(255, 255, 255);
-  padding: 0 16px;
+  padding: 0 24px 0 16px;
 }
 
 .site-header__left,
@@ -85,7 +85,8 @@ video {
 
 .site-header__right {
   justify-content: flex-end;
-  gap: 12px;
+  gap: 10px;
+  min-width: 0;
 }
 
 .icon-button {
@@ -105,6 +106,7 @@ video {
 .site-logo {
   gap: 8px;
   font-weight: 800;
+  white-space: nowrap;
 }
 
 .site-logo__mark {
