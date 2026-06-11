@@ -24,6 +24,7 @@ function ChannelPage() {
   const [channelErrors, setChannelErrors] = useState({})
   const [videoForm, setVideoForm] = useState(emptyVideoForm)
   const [editingVideo, setEditingVideo] = useState(null)
+  const [savingVideo, setSavingVideo] = useState(false)
   const [showVideoForm, setShowVideoForm] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(channelId !== 'new')
@@ -94,6 +95,7 @@ function ChannelPage() {
     setError('')
 
     try {
+      setSavingVideo(true)
       if (editingVideo) {
         const response = await api.put(`/videos/${editingVideo._id}`, videoForm)
         setVideos((current) => current.map((video) => (video._id === editingVideo._id ? response.data : video)))
@@ -107,6 +109,8 @@ function ChannelPage() {
       setShowVideoForm(false)
     } catch (apiError) {
       setError(apiError.response?.data?.message || 'Unable to save video.')
+    } finally {
+      setSavingVideo(false)
     }
   }
 
@@ -201,8 +205,8 @@ function ChannelPage() {
             <textarea id="videoDescription" name="description" value={videoForm.description} onChange={handleVideoFormChange} />
           </div>
           {error && <p className="error-text">{error}</p>}
-          <button className="primary-button" type="submit">
-            {editingVideo ? 'Save Video' : 'Upload Video'}
+          <button className="primary-button" type="submit" disabled={savingVideo}>
+            {savingVideo ? 'Saving...' : editingVideo ? 'Save Video' : 'Upload Video'}
           </button>
         </form>
       )}
