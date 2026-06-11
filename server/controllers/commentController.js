@@ -14,8 +14,9 @@ export async function getComments(request, response, next) {
 export async function addComment(request, response, next) {
   try {
     const { text } = request.body
+    const normalizedText = typeof text === 'string' ? text.trim() : ''
 
-    if (!text || !text.trim()) {
+    if (!normalizedText) {
       return response.status(400).json({ message: 'Comment text is required.' })
     }
 
@@ -28,7 +29,7 @@ export async function addComment(request, response, next) {
       videoId: request.params.videoId,
       userId: request.user.id,
       username: request.user.username,
-      text: text.trim(),
+      text: normalizedText,
     })
 
     return response.status(201).json(comment)
@@ -40,6 +41,7 @@ export async function addComment(request, response, next) {
 export async function updateComment(request, response, next) {
   try {
     const { text } = request.body
+    const normalizedText = typeof text === 'string' ? text.trim() : ''
     const comment = await Comment.findById(request.params.commentId)
 
     if (!comment || comment.videoId !== request.params.videoId) {
@@ -50,11 +52,11 @@ export async function updateComment(request, response, next) {
       return response.status(403).json({ message: 'Only the comment author can edit this comment.' })
     }
 
-    if (!text || !text.trim()) {
+    if (!normalizedText) {
       return response.status(400).json({ message: 'Comment text is required.' })
     }
 
-    comment.text = text.trim()
+    comment.text = normalizedText
     const updatedComment = await comment.save()
 
     return response.status(200).json(updatedComment)
