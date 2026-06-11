@@ -10,7 +10,11 @@ function buildVideoQuery({ search, category }) {
   const normalizedCategory = category?.trim()
 
   if (normalizedSearch) {
-    query.title = { $regex: normalizedSearch, $options: 'i' }
+    query.$or = [
+      { title: { $regex: normalizedSearch, $options: 'i' } },
+      { channelName: { $regex: normalizedSearch, $options: 'i' } },
+      { category: { $regex: normalizedSearch, $options: 'i' } },
+    ]
   }
 
   if (normalizedCategory && normalizedCategory !== 'All') {
