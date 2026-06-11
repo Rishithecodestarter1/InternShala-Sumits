@@ -149,6 +149,17 @@ VITE_API_URL=http://localhost:5000/api
 - `PUT /api/videos/:videoId/comments/:commentId`
 - `DELETE /api/videos/:videoId/comments/:commentId`
 
+## API Verification
+
+After starting the backend, verify the API from PowerShell:
+
+```powershell
+Invoke-RestMethod http://localhost:5000/
+Invoke-RestMethod "http://localhost:5000/api/videos"
+Invoke-RestMethod "http://localhost:5000/api/videos?search=music"
+Invoke-RestMethod "http://localhost:5000/api/videos?category=Education"
+```
+
 ## RGB Color Rule
 
 Every CSS color value is written with `rgb(...)` or `rgba(...)`. Do not use hex, HSL, or named CSS colors.
