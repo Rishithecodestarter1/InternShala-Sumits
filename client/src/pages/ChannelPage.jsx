@@ -90,6 +90,13 @@ function ChannelPage() {
     setVideoForm((current) => ({ ...current, [event.target.name]: event.target.value }))
   }
 
+  const resetVideoForm = () => {
+    setVideoForm(emptyVideoForm)
+    setEditingVideo(null)
+    setShowVideoForm(false)
+    setError('')
+  }
+
   const submitVideo = async (event) => {
     event.preventDefault()
     setError('')
@@ -104,9 +111,7 @@ function ChannelPage() {
         // The new video is immediately added to local state so the user sees it without a full page reload.
         setVideos((current) => [response.data, ...current])
       }
-      setVideoForm(emptyVideoForm)
-      setEditingVideo(null)
-      setShowVideoForm(false)
+      resetVideoForm()
     } catch (apiError) {
       setError(apiError.response?.data?.message || 'Unable to save video.')
     } finally {
@@ -205,9 +210,14 @@ function ChannelPage() {
             <textarea id="videoDescription" name="description" value={videoForm.description} onChange={handleVideoFormChange} />
           </div>
           {error && <p className="error-text">{error}</p>}
-          <button className="primary-button" type="submit" disabled={savingVideo}>
-            {savingVideo ? 'Saving...' : editingVideo ? 'Save Video' : 'Upload Video'}
-          </button>
+          <div className="form-actions">
+            <button className="primary-button" type="submit" disabled={savingVideo}>
+              {savingVideo ? 'Saving...' : editingVideo ? 'Save Video' : 'Upload Video'}
+            </button>
+            <button className="secondary-button" type="button" disabled={savingVideo} onClick={resetVideoForm}>
+              Cancel
+            </button>
+          </div>
         </form>
       )}
 
