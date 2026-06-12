@@ -31,7 +31,7 @@ function ChannelPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(channelId !== 'new')
 
-  const isNewChannelFlow = channelId === 'new'
+  const isNewChannelFlow = channelId === 'new' || !channelId
   const isOwner = Boolean(channel && user?.id === channel.owner)
 
   useEffect(() => {

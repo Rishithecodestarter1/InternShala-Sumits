@@ -1,21 +1,24 @@
 // AuthContext.jsx - Provides authentication state to the app and persists login via localStorage.
-import { createContext, useContext, useEffect, useMemo, useState } from 'react'
+import { createContext, useContext, useMemo, useState } from 'react'
 
 const AuthContext = createContext(null)
 
+function getStoredUser() {
+  const storedUser = localStorage.getItem('user')
+  if (!storedUser) return null
+
+  try {
+    return JSON.parse(storedUser)
+  } catch {
+    localStorage.removeItem('user')
+    localStorage.removeItem('token')
+    return null
+  }
+}
+
 export function AuthProvider({ children }) {
-  const [token, setToken] = useState('')
-  const [user, setUser] = useState(null)
-
-  useEffect(() => {
-    const storedToken = localStorage.getItem('token')
-    const storedUser = localStorage.getItem('user')
-
-    if (storedToken && storedUser) {
-      setToken(storedToken)
-      setUser(JSON.parse(storedUser))
-    }
-  }, [])
+  const [token, setToken] = useState(() => localStorage.getItem('token') || '')
+  const [user, setUser] = useState(getStoredUser)
 
   const login = (authData) => {
     const nextUser = {
