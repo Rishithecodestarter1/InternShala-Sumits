@@ -1,17 +1,111 @@
-# Submission Checklist
+# Capstone Submission Checklist
+
+Use this file as the final verification guide before submitting the `youtube-clone` MERN capstone project.
+
+## Project Setup
+
+- Repository uses the required MERN structure: `frontend/` for React + Vite and `backend/` for Express + MongoDB.
+- Root scripts can run both sides:
+  - `npm run dev:server`
+  - `npm run dev:client`
+  - `npm run build`
+  - `npm run lint`
+- `backend/.env` exists locally with `PORT`, `MONGO_URI`, and `JWT_SECRET`.
+- `.env`, `.env.*`, `node_modules`, build output, and logs are ignored by Git.
+- Git commits use `Rishi Nandan Choudhary <rishinandan1431@gmail.com>`.
+
+## Static Verification
 
 - Run `npm run lint` from the repository root.
 - Run `npm run build` from the repository root.
-- Add real MongoDB values to `backend/.env`.
-- Run `npm run secret:generate`.
-- Run `npm run secret:verify`.
-- Run `npm run seed`.
-- Start backend with `npm run dev:server`.
-- Start frontend with `npm run dev:client`.
-- Verify register, login, search, filters, video player, like/dislike, comments, and channel video CRUD.
-- Confirm CSS uses only `rgb(...)` or `rgba(...)` colors.
-- Confirm no `node_modules` folders are submitted.
-- Confirm the GitHub repository has 60 or more meaningful commits after the second polish pass.
-- Run `git log --oneline --max-count=20` to review the newest commits.
-- Run `git remote -v` to confirm the repository points to the correct GitHub URL.
-- Push the final branch with `git push origin main`.
+- Run backend syntax checks:
+  ```powershell
+  Get-ChildItem backend -Recurse -Filter *.js | ForEach-Object { node --check $_.FullName }
+  ```
+- Confirm the codebase uses ES Modules and does not use `require` or `module.exports`.
+- Confirm frontend CSS colors use only `rgb(...)` or `rgba(...)`.
+- Confirm no `node_modules` folders are tracked:
+  ```powershell
+  git ls-files | Select-String "node_modules"
+  ```
+
+## Backend Requirements
+
+- Run `npm run secret:verify` to confirm a strong local JWT secret is configured.
+- Run `npm run seed` to load demo data into MongoDB.
+- `GET /` returns a JSON health response.
+- `GET /api/videos` returns at least 14 seeded videos.
+- `GET /api/videos?search=react` searches by video title, channel name, and category.
+- `GET /api/videos?category=Education` filters by category.
+- `GET /api/videos?page=1&limit=5` returns paginated metadata.
+- Register validates username, email, and password.
+- Login returns a JWT and user payload.
+- Protected routes reject missing or invalid tokens with `401`.
+- Channel routes support create, update, and owner-only video management.
+- Video routes support create, read, update, delete, like, and dislike.
+- Comment routes support add, fetch, edit, and delete.
+- Compatibility aliases are available for video reactions and comment edit/delete routes.
+
+## Seed Data Coverage
+
+- Seeded videos cover the required categories:
+  - `Education`
+  - `Entertainment`
+  - `Music`
+  - `Gaming`
+  - `Sports`
+  - `News`
+- Extra practical categories are also included: `Web Development`, `Cooking`, and `Live`.
+- Each seeded video includes a title, thumbnail URL, video URL, description, views, channel data, like/dislike arrays, and category.
+- Seeded comments are attached across multiple videos so the watch page feels active.
+- Demo login credentials:
+  - `john@example.com` / `password123`
+  - `jane@example.com` / `password123`
+
+## Frontend Requirements
+
+- Home page shows a YouTube-like header, sidebar, filter row, and responsive video grid.
+- Video cards show thumbnail, title, channel name, views, and category metadata.
+- Search filters videos through the URL query and backend API.
+- Category buttons work together with search.
+- Sign In button appears before login.
+- Username/avatar state appears after successful login.
+- Registration shows a friendly success message and returns the user to Sign In.
+- Login stores the JWT/user data in `localStorage`.
+- Stale or invalid JWT responses clear auth state and redirect to `/auth`.
+- Watch page displays the native video player, title, description, channel details, like/dislike buttons, and comments.
+- Comments can be added, edited, and deleted without reloading the page.
+- Channel page lets an authenticated user create/update a channel and upload/edit/delete their own videos.
+- Not Found page displays the invalid URL.
+- Mobile, tablet, and desktop layouts remain usable.
+
+## Runtime Demo
+
+- Start the backend:
+  ```powershell
+  npm run dev:server
+  ```
+- Start the frontend:
+  ```powershell
+  npm run dev:client
+  ```
+- Open the frontend at `http://127.0.0.1:5173/`.
+- Verify the Vite proxy reaches the backend:
+  ```powershell
+  Invoke-RestMethod http://127.0.0.1:5173/api/videos
+  ```
+- Confirm the terminal logs show no runtime errors.
+
+## Git And Submission
+
+- Run `git status --short --branch` and confirm the tree is clean.
+- Run `git rev-list --count HEAD` and confirm the repository has more than 61 commits after final polish.
+- Run `git log --format="%h | %an <%ae> | %s" --max-count=10` and confirm the newest commits are under your name.
+- Confirm the remote URL:
+  ```powershell
+  git remote -v
+  ```
+- Push the final branch:
+  ```powershell
+  git push origin main
+  ```

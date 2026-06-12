@@ -61,6 +61,8 @@ Seed the database:
 npm run seed
 ```
 
+The seed script loads 16 demo videos across `Education`, `Entertainment`, `Music`, `Gaming`, `Sports`, `News`, `Web Development`, `Cooking`, and `Live`, plus comments on multiple videos so the watch page has realistic activity.
+
 Start the app in two terminals:
 
 ```powershell
@@ -76,6 +78,8 @@ Backend: http://localhost:5000/
 ```
 
 ## Seeded Login
+
+Use these demo accounts after running `npm run seed`:
 
 ```text
 Email: john@example.com
@@ -93,6 +97,7 @@ Password: password123
 - Secure JWT secret generation and verification
 - Search videos by title, channel, or category
 - Category filters with pagination-ready backend API
+- Seeded demo feed with 16 videos across the required capstone categories
 - Native video playback with view count increments
 - Like/dislike toggles
 - Full comment CRUD

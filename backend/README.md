@@ -35,3 +35,9 @@ JWT_SECRET="generated_by_the_secret_utility"
 | --- | --- | --- |
 | John Creator | `john@example.com` | `password123` |
 | Jane Viewer | `jane@example.com` | `password123` |
+
+## Seeded Demo Videos
+
+`npm run seed` creates 16 videos with remote thumbnail/video URLs and comments across the required capstone categories: `Education`, `Entertainment`, `Music`, `Gaming`, `Sports`, and `News`.
+
+It also keeps extra practical categories available for the UI demo: `Web Development`, `Cooking`, and `Live`.
