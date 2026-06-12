@@ -7,7 +7,6 @@
 - Frontend: React, Vite 8, React Router, Axios
 - Backend: Node.js, Express, MongoDB, Mongoose
 - Authentication: JWT with bcrypt password hashing
-- Styling and logs: CSS uses only `rgb(...)` / `rgba(...)`; backend console logs use RGB ANSI escape codes
 
 ## Folder Structure
 
