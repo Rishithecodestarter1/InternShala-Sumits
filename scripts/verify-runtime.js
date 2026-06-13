@@ -12,6 +12,12 @@ async function readJson(url) {
   return response.json()
 }
 
+async function checkVideoUrl(url) {
+  const response = await fetch(url, { headers: { Range: 'bytes=0-1023' } })
+  const contentType = response.headers.get('content-type') || ''
+  return (response.ok || response.status === 206) && contentType.includes('video/')
+}
+
 function assert(condition, message) {
   if (!condition) {
     throw new Error(message)
@@ -36,9 +42,17 @@ async function verifyRuntime() {
   const educationVideos = await readJson(`${frontendUrl}/api/videos?category=Education`)
   assert(Array.isArray(educationVideos) && educationVideos.every((video) => video.category === 'Education'), 'Education filter returned an unexpected category.')
 
+  const uniqueVideoUrls = [...new Set(videos.map((video) => video.videoUrl))]
+  const brokenVideoUrls = []
+  for (const url of uniqueVideoUrls) {
+    if (!(await checkVideoUrl(url))) brokenVideoUrls.push(url)
+  }
+  assert(brokenVideoUrls.length === 0, `These seeded video URLs are not playable: ${brokenVideoUrls.join(', ')}`)
+
   console.log('Runtime verification passed.')
   console.log(`Backend: ${backendUrl}`)
   console.log(`Frontend proxy videos: ${videos.length}`)
+  console.log(`Playable video URLs: ${uniqueVideoUrls.length}`)
   console.log(`Required categories: ${requiredCategories.join(', ')}`)
 }
 

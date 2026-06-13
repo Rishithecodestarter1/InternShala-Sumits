@@ -10,11 +10,21 @@ import { error as logError, info, success } from './utils/colorLog.js'
 
 dotenv.config({ quiet: true })
 
+const workingVideoUrls = [
+  'https://interactive-examples.mdn.mozilla.net/media/cc0-videos/flower.mp4',
+  'https://media.w3.org/2010/05/sintel/trailer.mp4',
+  'https://media.w3.org/2010/05/bunny/trailer.mp4',
+  'https://media.w3.org/2010/05/video/movie_300.mp4',
+  'https://www.w3schools.com/html/mov_bbb.mp4',
+  'https://test-videos.co.uk/vids/bigbuckbunny/mp4/h264/360/Big_Buck_Bunny_360_10s_1MB.mp4',
+  'https://filesamples.com/samples/video/mp4/sample_640x360.mp4',
+]
+
 const sampleVideos = [
   {
     title: 'Learn React in 30 Minutes',
     thumbnailUrl: 'https://images.unsplash.com/photo-1633356122544-f134324a6cee',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/BigBuckBunny.mp4',
+    videoUrl: workingVideoUrls[0],
     description: 'A quick tutorial to get started with React components, props, and state.',
     views: 15200,
     likes: [],
@@ -24,7 +34,7 @@ const sampleVideos = [
   {
     title: 'JavaScript Array Methods Explained',
     thumbnailUrl: 'https://images.unsplash.com/photo-1515879218367-8466d910aaa4',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ElephantsDream.mp4',
+    videoUrl: workingVideoUrls[1],
     description: 'Understand map, filter, reduce, and find with beginner-friendly examples.',
     views: 9800,
     likes: [],
@@ -34,7 +44,7 @@ const sampleVideos = [
   {
     title: 'Data Structures for Interviews',
     thumbnailUrl: 'https://images.unsplash.com/photo-1555949963-aa79dcee981c',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    videoUrl: workingVideoUrls[2],
     description: 'A practical overview of arrays, stacks, queues, linked lists, and trees.',
     views: 22100,
     likes: [],
@@ -44,7 +54,7 @@ const sampleVideos = [
   {
     title: 'Relaxing Coding Music Mix',
     thumbnailUrl: 'https://images.unsplash.com/photo-1511379938547-c1f69419868d',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    videoUrl: workingVideoUrls[3],
     description: 'A calm music session for long study and coding practice.',
     views: 30200,
     likes: [],
@@ -54,7 +64,7 @@ const sampleVideos = [
   {
     title: 'Gaming UI Design Breakdown',
     thumbnailUrl: 'https://images.unsplash.com/photo-1542751371-adc38448a05e',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    videoUrl: workingVideoUrls[4],
     description: 'Learn how readable HUDs and game menus are designed.',
     views: 11200,
     likes: [],
@@ -64,7 +74,7 @@ const sampleVideos = [
   {
     title: 'Entertainment Editing Tricks',
     thumbnailUrl: 'https://images.unsplash.com/photo-1485846234645-a62644f84728',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerFun.mp4',
+    videoUrl: workingVideoUrls[5],
     description: 'Simple editing ideas that make short videos more fun to watch.',
     views: 13400,
     likes: [],
@@ -74,7 +84,7 @@ const sampleVideos = [
   {
     title: 'Tech News Weekly Roundup',
     thumbnailUrl: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+    videoUrl: workingVideoUrls[6],
     description: 'A quick weekly roundup of developer tools, launches, and platform news.',
     views: 6800,
     likes: [],
@@ -84,7 +94,7 @@ const sampleVideos = [
   {
     title: 'Sports Analytics Dashboard Walkthrough',
     thumbnailUrl: 'https://images.unsplash.com/photo-1461896836934-ffe607ba8211',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerBlazes.mp4',
+    videoUrl: workingVideoUrls[0],
     description: 'A dashboard walkthrough for sports stats and match insights.',
     views: 7400,
     likes: [],
@@ -94,7 +104,7 @@ const sampleVideos = [
   {
     title: 'CSS Layout Crash Course',
     thumbnailUrl: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerMeltdowns.mp4',
+    videoUrl: workingVideoUrls[1],
     description: 'Build cleaner layouts with flexbox, grid, spacing, and responsive rules.',
     views: 18600,
     likes: [],
@@ -104,7 +114,7 @@ const sampleVideos = [
   {
     title: 'Comedy Timing for Short Videos',
     thumbnailUrl: 'https://images.unsplash.com/photo-1527224857830-43a7acc85260',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/SubaruOutbackOnStreetAndDirt.mp4',
+    videoUrl: workingVideoUrls[2],
     description: 'A practical look at pacing, reaction shots, and short-form editing rhythm.',
     views: 9400,
     likes: [],
@@ -114,7 +124,7 @@ const sampleVideos = [
   {
     title: 'Focus Beats for Study Sessions',
     thumbnailUrl: 'https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/WeAreGoingOnBullrun.mp4',
+    videoUrl: workingVideoUrls[3],
     description: 'A steady background playlist for revision, coding practice, and deep work.',
     views: 27400,
     likes: [],
@@ -124,7 +134,7 @@ const sampleVideos = [
   {
     title: 'Esports Strategy Basics',
     thumbnailUrl: 'https://images.unsplash.com/photo-1511512578047-dfb367046420',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerEscapes.mp4',
+    videoUrl: workingVideoUrls[4],
     description: 'Understand map control, cooldown timing, and team communication basics.',
     views: 12100,
     likes: [],
@@ -134,7 +144,7 @@ const sampleVideos = [
   {
     title: 'Football Match Analysis',
     thumbnailUrl: 'https://images.unsplash.com/photo-1508098682722-e99c43a406b2',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/ForBiggerJoyrides.mp4',
+    videoUrl: workingVideoUrls[5],
     description: 'Breaking down pressing, transitions, and chance creation from a match replay.',
     views: 15800,
     likes: [],
@@ -144,7 +154,7 @@ const sampleVideos = [
   {
     title: 'AI Tools News Brief',
     thumbnailUrl: 'https://images.unsplash.com/photo-1495020689067-958852a7765e',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/VolkswagenGTIReview.mp4',
+    videoUrl: workingVideoUrls[6],
     description: 'A concise update on useful AI tools, developer releases, and product changes.',
     views: 10900,
     likes: [],
@@ -154,7 +164,7 @@ const sampleVideos = [
   {
     title: 'Cooking a Simple Pasta Dinner',
     thumbnailUrl: 'https://images.unsplash.com/photo-1551183053-bf91a1d81141',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/TearsOfSteel.mp4',
+    videoUrl: workingVideoUrls[0],
     description: 'A beginner-friendly pasta dinner with pantry ingredients and calm pacing.',
     views: 8300,
     likes: [],
@@ -164,7 +174,7 @@ const sampleVideos = [
   {
     title: 'Live Stream Setup Guide',
     thumbnailUrl: 'https://images.unsplash.com/photo-1516280440614-37939bbacd81',
-    videoUrl: 'https://commondatastorage.googleapis.com/gtv-videos-bucket/sample/Sintel.mp4',
+    videoUrl: workingVideoUrls[1],
     description: 'Set up lighting, microphone levels, scenes, and a simple live workflow.',
     views: 6700,
     likes: [],
