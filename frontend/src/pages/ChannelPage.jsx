@@ -25,6 +25,7 @@ function ChannelPage() {
   const [channelEditOpen, setChannelEditOpen] = useState(false)
   const [channelEditForm, setChannelEditForm] = useState({ channelName: '', description: '', channelBanner: '' })
   const [videoForm, setVideoForm] = useState(emptyVideoForm)
+  const [videoErrors, setVideoErrors] = useState({})
   const [editingVideo, setEditingVideo] = useState(null)
   const [savingVideo, setSavingVideo] = useState(false)
   const [showVideoForm, setShowVideoForm] = useState(false)
@@ -112,19 +113,41 @@ function ChannelPage() {
   }
 
   const handleVideoFormChange = (event) => {
-    setVideoForm((current) => ({ ...current, [event.target.name]: event.target.value }))
+    const { name, value } = event.target
+    setVideoForm((current) => ({ ...current, [name]: value }))
+    setVideoErrors((current) => {
+      const nextErrors = { ...current }
+      delete nextErrors[name]
+      return nextErrors
+    })
   }
 
   const resetVideoForm = () => {
     setVideoForm(emptyVideoForm)
+    setVideoErrors({})
     setEditingVideo(null)
     setShowVideoForm(false)
     setError('')
   }
 
+  const validateVideoForm = () => {
+    const nextErrors = {}
+
+    if (videoForm.title.trim().length < 3) nextErrors.title = 'Title must be at least 3 characters.'
+    if (!videoForm.thumbnailUrl.trim()) nextErrors.thumbnailUrl = 'Thumbnail URL is required.'
+    if (!videoForm.videoUrl.trim()) nextErrors.videoUrl = 'Video URL is required.'
+    if (videoForm.description.trim().length < 10) nextErrors.description = 'Description must be at least 10 characters.'
+    if (!videoForm.category || videoForm.category === 'All') nextErrors.category = 'Choose a video category.'
+
+    setVideoErrors(nextErrors)
+    return Object.keys(nextErrors).length === 0
+  }
+
   const submitVideo = async (event) => {
     event.preventDefault()
     setError('')
+
+    if (!validateVideoForm()) return
 
     try {
       setSavingVideo(true)
@@ -247,29 +270,34 @@ function ChannelPage() {
         <form className="form-card video-form" onSubmit={submitVideo}>
           <div className="form-field">
             <label htmlFor="title">Title</label>
-            <input id="title" name="title" value={videoForm.title} onChange={handleVideoFormChange} />
+            <input id="title" name="title" value={videoForm.title} aria-invalid={Boolean(videoErrors.title)} onChange={handleVideoFormChange} />
+            {videoErrors.title && <span className="error-text">{videoErrors.title}</span>}
           </div>
           <div className="form-field">
             <label htmlFor="thumbnailUrl">Thumbnail URL</label>
-            <input id="thumbnailUrl" name="thumbnailUrl" value={videoForm.thumbnailUrl} onChange={handleVideoFormChange} />
+            <input id="thumbnailUrl" name="thumbnailUrl" value={videoForm.thumbnailUrl} aria-invalid={Boolean(videoErrors.thumbnailUrl)} onChange={handleVideoFormChange} />
+            {videoErrors.thumbnailUrl && <span className="error-text">{videoErrors.thumbnailUrl}</span>}
           </div>
           <div className="form-field">
             <label htmlFor="videoUrl">Video URL</label>
-            <input id="videoUrl" name="videoUrl" value={videoForm.videoUrl} onChange={handleVideoFormChange} />
+            <input id="videoUrl" name="videoUrl" value={videoForm.videoUrl} aria-invalid={Boolean(videoErrors.videoUrl)} onChange={handleVideoFormChange} />
+            {videoErrors.videoUrl && <span className="error-text">{videoErrors.videoUrl}</span>}
           </div>
           <div className="form-field">
             <label htmlFor="category">Category</label>
-            <select id="category" name="category" value={videoForm.category} onChange={handleVideoFormChange}>
+            <select id="category" name="category" value={videoForm.category} aria-invalid={Boolean(videoErrors.category)} onChange={handleVideoFormChange}>
               {categories.filter((category) => category !== 'All').map((category) => (
                 <option key={category} value={category}>
                   {category}
                 </option>
               ))}
             </select>
+            {videoErrors.category && <span className="error-text">{videoErrors.category}</span>}
           </div>
           <div className="form-field">
             <label htmlFor="videoDescription">Description</label>
-            <textarea id="videoDescription" name="description" value={videoForm.description} onChange={handleVideoFormChange} />
+            <textarea id="videoDescription" name="description" value={videoForm.description} aria-invalid={Boolean(videoErrors.description)} onChange={handleVideoFormChange} />
+            {videoErrors.description && <span className="error-text">{videoErrors.description}</span>}
           </div>
           {error && <p className="error-text">{error}</p>}
           <div className="form-actions">
