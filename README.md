@@ -154,10 +154,3 @@ Record the short submission demo separately after starting both servers. A compl
 - Mobile or narrow browser width to show the responsive layout.
 
 Do not commit the recorded video file unless the submission portal explicitly asks for it in the repository.
-
-## Security Notes
-
-- Never commit `backend/.env`.
-- Keep `JWT_SECRET` private.
-- If the secret leaks, generate a new one and make users log in again.
-- The project already has more than 20 meaningful Git commits.
