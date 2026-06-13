@@ -6,6 +6,10 @@
 
 `https://github.com/Rishithecodestarter1/InternShala-Youtube-Project`
 
+## Description
+
+Used Non copyrighted Videos for the project. Just for learning purpose. The project is a clone of YouTube with features like video upload, video playback, comments, likes/dislikes, and channel management. It uses React for the frontend and Node.js with Express for the backend, along with MongoDB for data storage.
+
 ## Tech Stack
 
 - Frontend: React, Vite 8, React Router, Axios
